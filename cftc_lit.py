@@ -33,8 +33,7 @@ index['cit_net'] = index.cit_positions_long_all - index.cit_positions_short_all
 st.dataframe(fut[['merc_net','swap_net','other_net','money_net','non_net']].join(index[['cit_net','open_interest_all']]).diff().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
 
 
-st.line_chart(fut[['money_net_old']].tail(52))
-st.line_chart(fut[['money_net_new']].tail(52))
+st.line_chart(fut[['money_net_old','money_net_new']].tail(52))
 
 
 
