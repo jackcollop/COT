@@ -45,4 +45,6 @@ fig.update_layout(
         ticktext = ['Jan','Feb','Mar','Apr','May','Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'],
     )
 )
+
+fig['data'][-1]['line']['width']=5
 st.plotly_chart(fig)
