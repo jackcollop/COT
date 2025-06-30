@@ -28,14 +28,14 @@ index['Date'] = pd.to_datetime(index.report_date_as_yyyy_mm_dd)
 index.sort_values(by=['Date'], inplace=True)
 index.set_index('Date', inplace=True)
 
-index['cit_net'] = index.cit_positions_long_all - index.cit_positions_short_all
+index['index'] = index.cit_positions_long_all - index.cit_positions_short_all
 
-st.dataframe(fut[['money','merchant','swap_dealer','other_rept','non_rept']].join(index[['cit_net','open_interest_all']]).diff().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
+st.dataframe(fut[['money','merchant','swap_dealer','other_rept','non_rept']].join(index[['index','open_interest_all']]).diff().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
 
 fut['week'] = fut['yyyy_report_week_ww'].str.split(' ', expand=True)[3]
 fut['year'] = fut.index.year
 
-fut['money_net'] = fut['m_money_positions_long_all'] - fut['m_money_positions_short_all']
+fut['money'] = fut['m_money_positions_long_all'] - fut['m_money_positions_short_all']
 fig = px.line(fut.reset_index()[['week','year','money']].pivot(index='week', columns='year', values='money_net'))
 
 fig.update_layout(
