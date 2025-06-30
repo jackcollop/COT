@@ -32,9 +32,17 @@ index['cit_net'] = index.cit_positions_long_all - index.cit_positions_short_all
 
 st.dataframe(fut[['merc_net','swap_net','other_net','money_net','non_net']].join(index[['cit_net','open_interest_all']]).diff().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
 
+fut['week'] = fut['yyyy_report_week_ww'].str.split(' ', expand=True)[3]
+fut['year'] = fut.index.year
 
-st.line_chart(fut[['money_net_old','money_net_new']].tail(52))
+fut['money_net'] = fut['m_money_positions_long_all'] - fut['m_money_positions_short_all']
+fig = px.line(fut.reset_index()[['week','year','money_net']].pivot(index='week', columns='year', values='money_net'))
 
-
-
-st.line_chart(fut[['money_net','open_interest_all']].join(index['cit_net']))
+fig.update_layout(
+    xaxis = dict(
+        tickmode = 'array',
+        tickvals = np.arange(1, 53, 4.34524),
+        ticktext = ['Jan','Feb','Mar','Apr','May','Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'],
+    )
+)
+st.plotly_chart(fig)
