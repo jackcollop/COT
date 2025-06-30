@@ -36,7 +36,7 @@ fut['week'] = fut['yyyy_report_week_ww'].str.split(' ', expand=True)[3]
 fut['year'] = fut.index.year
 
 fut['money'] = fut['m_money_positions_long_all'] - fut['m_money_positions_short_all']
-fig = px.line(fut.reset_index()[['week','year','money']].pivot(index='week', columns='year', values='money_net'))
+fig = px.line(fut.reset_index()[['week','year','money']].pivot(index='week', columns='year', values='money'))
 
 fig.update_layout(
     xaxis = dict(
