@@ -65,4 +65,4 @@ fig.update_layout(
 fig['data'][-1]['line']['width']=5
 st.plotly_chart(fig)
 
-st.plotly_chart(fig1)
+st.plotly_chart(fig2)
