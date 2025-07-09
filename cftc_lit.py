@@ -70,5 +70,5 @@ fig['data'][-1]['line']['width']=5
 st.caption("Cotton managed money net position")
 st.plotly_chart(fig)
 
-st.caption("Managed money futures weekly futures flow by commodity")
+st.caption("Managed money weekly futures flow by commodity (normalized as % total open interest)")
 st.plotly_chart(fig2)
