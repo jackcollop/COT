@@ -67,7 +67,7 @@ fig = px.line(fut.reset_index()[['week','year','money']].pivot(index='week', col
 fig.update_layout(
     xaxis = dict(
         tickmode = 'array',
-        tickvals = np.arange(1, 53, 4.34524),
+        tickvals = np.arange(1, 53, 4.4167),
         ticktext = ['Jan','Feb','Mar','Apr','May','Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'],
     )
 )
