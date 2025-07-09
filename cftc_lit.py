@@ -38,6 +38,13 @@ fig1 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('commodity_
 fig2 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('contract_market_name')[['m_net','m_net_pct_oi']].drop(['BUTTER (CASH SETTLED)','NON FAT DRY MILK', 'CME MILK IV']), hover_data='m_net')
 #%%
 
+i1 = pd.read_json('https://publicreporting.cftc.gov/resource/4zgm-a668.json?report_date_as_yyyy_mm_dd='+date)
+#%%
+i1['index_net'] = i1['change_cit_long_all'] - i1['change_cit_short_all']
+
+i1['index_net_pct_oi'] = i1['index_net'] / i1['open_interest_all']
+#%%
+fig3 = px.bar(i1[i1.commodity_group_name == 'AGRICULTURE'].set_index('contract_market_name')[['index_net_pct_oi','index_net']], hover_data='index_net')
 
 index = requests.get(r'https://publicreporting.cftc.gov/resource/4zgm-a668.json?commodity_name=COTTON&$limit=1500', cert=False).text
 
@@ -72,3 +79,6 @@ st.plotly_chart(fig)
 
 st.caption("Managed money weekly futures flow by commodity (normalized as % total open interest)")
 st.plotly_chart(fig2)
+
+st.caption("Index weekly net futures flow by commodity (normalized as % total open interest)")
+st.plotly_chart(fig3)
