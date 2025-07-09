@@ -16,9 +16,9 @@ fut.set_index('Date', inplace=True)
 
 fut['merchant'] = fut['prod_merc_positions_long'] - fut['prod_merc_positions_short']
 fut['swap_dealer'] = fut['swap_positions_long_all'] - fut['swap__positions_short_all']
-fut['other_rept'] = fut['other_rept_positions_long'] - fut['other_rept_positions_short']
+fut['other_reportable'] = fut['other_rept_positions_long'] - fut['other_rept_positions_short']
 fut['money'] = fut['m_money_positions_long_all'] - fut['m_money_positions_short_all']
-fut['non_rept'] = fut['nonrept_positions_long_all'] - fut['nonrept_positions_short_all']
+fut['non_reportable'] = fut['nonrept_positions_long_all'] - fut['nonrept_positions_short_all']
 
 fut['money_net_old'] = fut['m_money_positions_long_old'] - fut['m_money_positions_short_old']
 fut['money_net_new'] = fut['m_money_positions_long_other'] - fut['m_money_positions_short_other']
@@ -48,7 +48,8 @@ index.set_index('Date', inplace=True)
 
 index['index'] = index.cit_positions_long_all - index.cit_positions_short_all
 
-st.dataframe(fut[['money','merchant','swap_dealer','other_rept','non_rept']].join(index[['index','open_interest_all']]).diff().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
+st.caption("Net weekly flow by type")
+st.dataframe(fut[['money','merchant','swap_dealer','other_reportable','non_reportable']].join(index[['index','open_interest_all']]).diff().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
 
 fut['week'] = fut['yyyy_report_week_ww'].str.split(' ', expand=True)[3]
 fut['year'] = fut.index.year
@@ -65,6 +66,9 @@ fig.update_layout(
 )
 
 fig['data'][-1]['line']['width']=5
+
+st.caption("Cotton managed money net position")
 st.plotly_chart(fig)
 
+st.caption("Managed money futures weekly futures flow by commodity")
 st.plotly_chart(fig2)
