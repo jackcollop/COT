@@ -4,7 +4,7 @@ import streamlit as st
 import plotly.express as px
 import requests
 
-set.set_page_config(layout='wide')
+st.set_page_config(layout='wide')
 
 fut = requests.get(r'https://publicreporting.cftc.gov/resource/72hh-3qpy.json?commodity_name=COTTON', cert=False).text
 
