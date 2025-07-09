@@ -21,6 +21,22 @@ fut['non_rept'] = fut['nonrept_positions_long_all'] - fut['nonrept_positions_sho
 fut['money_net_old'] = fut['m_money_positions_long_old'] - fut['m_money_positions_short_old']
 fut['money_net_new'] = fut['m_money_positions_long_other'] - fut['m_money_positions_short_other']
 
+date = fut.report_date_as_yyyy_mm_dd.iloc[-1]
+
+date = str(date)
+
+r1 = pd.read_json(r'https://publicreporting.cftc.gov/resource/kh3c-gbw2.json?report_date_as_yyyy_mm_dd='+date)
+#%%
+r1['m_net'] = r1['change_in_m_money_long_all'] - r1['change_in_m_money_short_all']
+
+r1['m_net_pct_oi'] = r1['m_net'] / r1['open_interest_all']
+#%%
+fig 1 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('commodity_name').m_net)
+#%%
+fig 2 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('contract_market_name')[['m_net','m_net_pct_oi']].drop(['BUTTER (CASH SETTLED)','NON FAT DRY MILK', 'CME MILK IV']), hover_data='m_net')
+#%%
+
+
 index = requests.get(r'https://publicreporting.cftc.gov/resource/4zgm-a668.json?commodity_name=COTTON&$limit=1500', cert=False).text
 
 index = pd.read_json(index)
@@ -48,3 +64,5 @@ fig.update_layout(
 
 fig['data'][-1]['line']['width']=5
 st.plotly_chart(fig)
+
+st.plotly_chart(fig1)
