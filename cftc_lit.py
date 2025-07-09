@@ -31,9 +31,9 @@ r1['m_net'] = r1['change_in_m_money_long_all'] - r1['change_in_m_money_short_all
 
 r1['m_net_pct_oi'] = r1['m_net'] / r1['open_interest_all']
 #%%
-fig 1 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('commodity_name').m_net)
+fig1 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('commodity_name').m_net)
 #%%
-fig 2 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('contract_market_name')[['m_net','m_net_pct_oi']].drop(['BUTTER (CASH SETTLED)','NON FAT DRY MILK', 'CME MILK IV']), hover_data='m_net')
+fig2 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('contract_market_name')[['m_net','m_net_pct_oi']].drop(['BUTTER (CASH SETTLED)','NON FAT DRY MILK', 'CME MILK IV']), hover_data='m_net')
 #%%
 
 
