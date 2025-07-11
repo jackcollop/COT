@@ -36,7 +36,7 @@ r1['m_net_pct_oi'] = r1['m_net'] / r1['open_interest_all']
 fig1 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('commodity_name').m_net)
 #%%
 fig2 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('contract_market_name')[['m_net','m_net_pct_oi']].drop(['BUTTER (CASH SETTLED)','NON FAT DRY MILK', 'CME MILK IV']), hover_data='m_net')
-figX = px.bar(r1[r1.commodity_group_name != 'AGRICULTURE'].set_index('contract_market_name')[['m_net','m_net_pct_oi']], hover_data='m_net')
+figX = r1[r1.commodity_group_name != 'AGRICULTURE'].set_index('contract_market_name')[['m_net','m_net_pct_oi']]
 #%%
 
 i1 = pd.read_json('https://publicreporting.cftc.gov/resource/4zgm-a668.json?report_date_as_yyyy_mm_dd='+date)
@@ -83,4 +83,4 @@ st.plotly_chart(fig2)
 
 st.caption("Index weekly net futures flow by commodity (normalized as % total open interest)")
 st.plotly_chart(fig3)
-st.plotly_chart(figX)
+st.dataframe(figX)
