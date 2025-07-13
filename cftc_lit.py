@@ -36,7 +36,6 @@ r1['m_net_pct_oi'] = r1['m_net'] / r1['open_interest_all']
 fig1 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('commodity_name').m_net)
 #%%
 fig2 = px.bar(r1[r1.commodity_group_name == 'AGRICULTURE'].set_index('contract_market_name')[['m_net','m_net_pct_oi']].drop(['BUTTER (CASH SETTLED)','NON FAT DRY MILK', 'CME MILK IV']), hover_data='m_net')
-st.dataframe(r1[r1.commodity_group_name != 'AGRICULTURE'].set_index('contract_market_name')[['m_net','m_net_pct_oi']])
 
 #%%
 
@@ -84,3 +83,8 @@ st.plotly_chart(fig2)
 
 st.caption("Index weekly net futures flow by commodity (normalized as % total open interest)")
 st.plotly_chart(fig3)
+
+
+st.caption("Index weekly net futures flow by commodity (normalized as % total open interest)")
+st.plotly_chart(px.bar(r1[r1.commodity_subgroup_name.isin(['PRECIOUS METALS','BASE METALS','WOOD'])].set_index('contract_market_name')[['m_net','m_net_pct_oi']]))
+
