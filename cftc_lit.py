@@ -6,7 +6,7 @@ import requests
 
 st.set_page_config(layout='wide')
 
-fut = pd.read_json(r'https://publicreporting.cftc.gov/resource/72hh-3qpy.json?commodity_name=COTTON', cert=False).text
+fut = pd.read_json(r'https://publicreporting.cftc.gov/resource/72hh-3qpy.json?commodity_name=COTTON')
 
 
 fut['Date'] = pd.to_datetime(fut.report_date_as_yyyy_mm_dd)
