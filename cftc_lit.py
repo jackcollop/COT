@@ -6,10 +6,9 @@ import requests
 
 st.set_page_config(layout='wide')
 
-fut = requests.get(r'https://publicreporting.cftc.gov/resource/72hh-3qpy.json?commodity_name=COTTON', cert=False).text
+fut = pd.read_json(r'https://publicreporting.cftc.gov/resource/72hh-3qpy.json?commodity_name=COTTON', cert=False).text
 
 
-fut = pd.read_json(fut)
 fut['Date'] = pd.to_datetime(fut.report_date_as_yyyy_mm_dd)
 fut.sort_values(by=['Date'], inplace=True)
 fut.set_index('Date', inplace=True)
