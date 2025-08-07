@@ -19,6 +19,10 @@ fut['other_reportable'] = fut['other_rept_positions_long'] - fut['other_rept_pos
 fut['money'] = fut['m_money_positions_long_all'] - fut['m_money_positions_short_all']
 fut['non_reportable'] = fut['nonrept_positions_long_all'] - fut['nonrept_positions_short_all']
 
+fut['money_rank'] = fut.money.rank(pct=True)
+
+st.caption(f"Spec funds net position currently {fut.money_rank.iloc[-1]} percentile")
+
 fut['money_net_old'] = fut['m_money_positions_long_old'] - fut['m_money_positions_short_old']
 fut['money_net_new'] = fut['m_money_positions_long_other'] - fut['m_money_positions_short_other']
 
@@ -86,4 +90,5 @@ st.plotly_chart(fig3)
 
 st.caption("Index weekly net futures flow by commodity (normalized as % total open interest)")
 st.plotly_chart(px.bar(r1[r1.commodity_subgroup_name.isin(['PRECIOUS METALS','BASE METALS','WOOD'])].set_index('contract_market_name')[['m_net','m_net_pct_oi']]))
+
 
