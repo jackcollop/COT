@@ -6,7 +6,7 @@ import requests
 
 st.set_page_config(layout='wide')
 
-fut = pd.read_json(r'https://publicreporting.cftc.gov/resource/72hh-3qpy.json?commodity_name=COTTON')
+fut = pd.read_json(r'https://publicreporting.cftc.gov/resource/72hh-3qpy.json?commodity_name=COTTON&?limit=2000')
 
 
 fut['Date'] = pd.to_datetime(fut.report_date_as_yyyy_mm_dd)
@@ -89,6 +89,7 @@ st.plotly_chart(fig3)
 
 st.caption("Index weekly net futures flow by commodity (normalized as % total open interest)")
 st.plotly_chart(px.bar(r1[r1.commodity_subgroup_name.isin(['PRECIOUS METALS','BASE METALS','WOOD'])].set_index('contract_market_name')[['m_net','m_net_pct_oi']]))
+
 
 
 
