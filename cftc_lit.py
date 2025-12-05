@@ -57,7 +57,8 @@ index.sort_values(by=['Date'], inplace=True)
 index.set_index('Date', inplace=True)
 
 index['index'] = index.cit_positions_long_all - index.cit_positions_short_all
-
+index['week'] = index['yyyy_report_week_ww'].str.split(' ', expand=True)[3]
+index['year'] = index.index.year
 st.caption("Net weekly flow by type")
 st.dataframe(fut[['money','merchant','swap_dealer','other_reportable','non_reportable']].join(index[['index','open_interest_all']]).diff().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
 
@@ -95,6 +96,7 @@ fig.update_layout(
         ticktext = ['Jan','Feb','Mar','Apr','May','Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'],
     )
 )
+
 
 
 
