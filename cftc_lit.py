@@ -99,8 +99,9 @@ fig1.update_layout(
 
 fig1['data'][-1]['line']['width']=5
 
-st.caption(f"Cotton index funds net position ({fut.money_rank.mul(100).iloc[-1].round(2)} percentile)")
+st.caption(f"Cotton index funds net position")
 st.plotly_chart(fig1)
+
 
 
 
