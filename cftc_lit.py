@@ -77,7 +77,7 @@ fig.update_layout(
 
 fig['data'][-1]['line']['width']=5
 
-st.caption(f"Cotton managed money net position; spec funds net position currently {fut.money_rank.mul(100).iloc[-1].round(2)} percentile")
+st.caption(f"Cotton managed money net position ({fut.money_rank.mul(100).iloc[-1].round(2)} percentile)")
 st.plotly_chart(fig)
 
 st.caption("Managed money weekly futures flow by commodity (normalized as % total open interest)")
@@ -86,9 +86,16 @@ st.plotly_chart(fig2)
 st.caption("Index weekly net futures flow by commodity (normalized as % total open interest)")
 st.plotly_chart(fig3)
 
+fig = px.line(index.reset_index()[['week','year','index']].pivot(index='week', columns='year', values='index'))
 
-st.caption("Index weekly net futures flow by commodity (normalized as % total open interest)")
-st.plotly_chart(px.bar(r1[r1.commodity_subgroup_name.isin(['PRECIOUS METALS','BASE METALS','WOOD'])].set_index('contract_market_name')[['m_net','m_net_pct_oi']]))
+fig.update_layout(
+    xaxis = dict(
+        tickmode = 'array',
+        tickvals = np.arange(1, 53, 4.4167),
+        ticktext = ['Jan','Feb','Mar','Apr','May','Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'],
+    )
+)
+
 
 
 
