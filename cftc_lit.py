@@ -87,15 +87,20 @@ st.plotly_chart(fig2)
 st.caption("Index weekly net futures flow by commodity (normalized as % total open interest)")
 st.plotly_chart(fig3)
 
-fig = px.line(index.reset_index()[['week','year','index']].pivot(index='week', columns='year', values='index'))
+fig1 = px.line(index.reset_index()[['week','year','index']].pivot(index='week', columns='year', values='index'))
 
-fig.update_layout(
+fig1.update_layout(
     xaxis = dict(
         tickmode = 'array',
         tickvals = np.arange(1, 53, 4.4167),
         ticktext = ['Jan','Feb','Mar','Apr','May','Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'],
     )
 )
+
+fig1['data'][-1]['line']['width']=5
+
+st.caption(f"Cotton index funds net position ({fut.money_rank.mul(100).iloc[-1].round(2)} percentile)")
+st.plotly_chart(fig1)
 
 
 
