@@ -62,6 +62,8 @@ index['year'] = index.index.year
 st.caption("Net weekly flow by type")
 st.dataframe(fut[['money','merchant','swap_dealer','other_reportable','non_reportable']].join(index[['index','open_interest_all']]).diff().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
 
+st.dataframe(fut[['money','merchant','swap_dealer','other_reportable','non_reportable']].join(index[['index','open_interest_all']]).sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
+
 fut['week'] = fut['yyyy_report_week_ww'].str.split(' ', expand=True)[3]
 fut['year'] = fut.index.year
 
@@ -101,6 +103,7 @@ fig1['data'][-1]['line']['width']=5
 
 st.caption(f"Cotton index funds net position")
 st.plotly_chart(fig1)
+
 
 
 
