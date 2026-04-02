@@ -49,9 +49,8 @@ i1['index_net_pct_oi'] = i1['index_net'] / i1['open_interest_all']
 #%%
 fig3 = px.bar(i1[i1.commodity_group_name == 'AGRICULTURE'].set_index('contract_market_name')[['index_net_pct_oi','index_net']], hover_data='index_net')
 
-index = requests.get(r'https://publicreporting.cftc.gov/resource/4zgm-a668.json?commodity_name=COTTON&$limit=1500', cert=False).text
 
-index = pd.read_json(index)
+index = pd.read_json(r'https://publicreporting.cftc.gov/resource/4zgm-a668.json?commodity_name=COTTON&$limit=1500')
 index['Date'] = pd.to_datetime(index.report_date_as_yyyy_mm_dd)
 index.sort_values(by=['Date'], inplace=True)
 index.set_index('Date', inplace=True)
