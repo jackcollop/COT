@@ -103,6 +103,10 @@ fig1['data'][-1]['line']['width']=5
 st.caption(f"Cotton index funds net position")
 st.plotly_chart(fig1)
 
+fig4 = px.line(fut.reset_index()[['week','year','other_reportable']].pivot(index='week', columns='year', values='other_reportable'))
+fig4['data'][-1]['line']['width']=5
+st.caption(f"Cotton other rept. net position")
+st.plotly_chart(fig4)
 
 
 
