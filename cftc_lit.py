@@ -105,17 +105,22 @@ fig1['data'][-1]['line']['width']=5
 st.caption(f"Cotton index funds net position")
 st.plotly_chart(fig1)
 
-fig4 = px.line(fut.reset_index()[['week','year','other_reportable']].pivot(index='week', columns='year', values='other_reportable'))
-fig4['data'][-1]['line']['width']=5
-st.caption(f"Cotton other rept. net position")
-st.plotly_chart(fig4)
-
 
 def plot_seasonal(attr):
     fig4 = px.line(fut.reset_index()[['week','year',attr]].pivot(index='week', columns='year', values=attr))
     fig4['data'][-1]['line']['width']=5
+    fig4.update_layout(
+        xaxis = dict(
+            tickmode = 'array',
+            tickvals = np.arange(1, 53, 4.4167),
+            ticktext = ['Jan','Feb','Mar','Apr','May','Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'],
+                )
+            )
     st.caption(f"Cotton {attr} net position")
     return st.plotly_chart(fig4)
+
+
+plot_seasonal('other_reportable')
 
 plot_seasonal('total_spec')
 
