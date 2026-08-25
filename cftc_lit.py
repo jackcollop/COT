@@ -19,6 +19,8 @@ fut['other_reportable'] = fut['other_rept_positions_long'] - fut['other_rept_pos
 fut['money'] = fut['m_money_positions_long_all'] - fut['m_money_positions_short_all']
 fut['non_reportable'] = fut['nonrept_positions_long_all'] - fut['nonrept_positions_short_all']
 
+fut['total_spec'] = fut['money']+fut['non_reportable']+fut['other_reportable']
+
 fut['money_rank'] = fut.money.rank(pct=True)
 
 
@@ -59,9 +61,9 @@ index['index'] = index.cit_positions_long_all - index.cit_positions_short_all
 index['week'] = index['yyyy_report_week_ww'].str.split(' ', expand=True)[3]
 index['year'] = index.index.year
 st.caption("Net weekly flow by type")
-st.dataframe(fut[['money','merchant','swap_dealer','other_reportable','non_reportable']].join(index[['index','open_interest_all']]).diff().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
+st.dataframe(fut[['money','merchant','swap_dealer','other_reportable','non_reportable','total_spec']].join(index[['index','open_interest_all']]).diff().dropna().sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
 
-st.dataframe(fut[['money','merchant','swap_dealer','other_reportable','non_reportable']].join(index[['index','open_interest_all']]).sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
+st.dataframe(fut[['money','merchant','swap_dealer','other_reportable','non_reportable','total_spec']].join(index[['index','open_interest_all']]).sort_index(ascending=False), column_config={'Date':st.column_config.DateColumn('Date')})
 
 fut['week'] = fut['yyyy_report_week_ww'].str.split(' ', expand=True)[3]
 fut['year'] = fut.index.year
