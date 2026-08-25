@@ -111,7 +111,13 @@ st.caption(f"Cotton other rept. net position")
 st.plotly_chart(fig4)
 
 
+def plot_seasonal(attr):
+    fig4 = px.line(fut.reset_index()[['week','year',attr]].pivot(index='week', columns='year', values=attr))
+    fig4['data'][-1]['line']['width']=5
+    st.caption(f"Cotton {attr} net position")
+    return st.plotly_chart(fig4)
 
+plot_seasonal('total_spec')
 
 
 
